@@ -1,0 +1,12 @@
+.col-main, #wrapper
+{
+    zoom: 1;
+}
+
+code {
+    overflow: visible;
+}
+
+pre {
+    overflow: auto;
+}
