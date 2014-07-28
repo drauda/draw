@@ -9,7 +9,7 @@ $(document).ready(function()
 });
 
 
-$('#sendMessage').click(function(e) {
+/*$('#sendMessage').click(function(e) {
     var $form = $('#tellafriend_form');
     $.post($form.get(0).action, $form.serialize(), function(data){
           //something on success
@@ -17,6 +17,6 @@ $('#sendMessage').click(function(e) {
     $("#tellfriend").fadeToggle('fast');
 });
 
-/*function onSave(){
+function onSave(){
 var img =canvas.toDataURL(“image/jpg”);
 document.write(‘<img src””+img+ ‘“/>);*/

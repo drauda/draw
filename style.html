@@ -196,13 +196,18 @@ function findxy(res, e) {
     
     
 <div style="position:absolute;left:70%;top:30px">
-    <button type="button" class="btn btn-default" onclick="erase()" style="margin: 10px;"> start over
+    <button type="button" class="btn btn-default" onclick="erase()" style="margin: 10px;"> Start Over
     </button>
-    <button type="button" class="btn btn-default" onclick="onSave()"><span class="glyphicon glyphicon-envelope" onclick=""></span> email masterpiece</button>
+    <button id="save" type="button" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
+    <button id="show-gallery" class="btn btn-primary" data-toggle="modal">View Gallery</button>
+    <!--
+    <button type="button" class="btn btn-default" onclick="onSave()"><span class="glyphicon glyphicon-envelope" onclick=""></span> email masterpiece</button> -->
+
 </div>
 
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
 <script type="text/javascript" src="js/jquery.tinycolorpicker.min.js"></script>
 <script type="text/javascript" src="color.js"></script>
 
@@ -220,8 +225,59 @@ $(function() {
             case "X-Large": y = 100; break;
         };
     });
+
+    $("#save").on("click", function(e){
+        e.preventDefault();
+
+        var imageData = $("#can").get(0).toDataURL();
+
+        console.log("going to save the iamge");
+        console.log(imageData);
+
+        var fb = new Firebase("https://deviowa-draw.firebaseio.com/art-gallery");
+        fb.push(imageData);
+    });
+
+    $("#show-gallery").on("click", function(e) {
+        e.preventDefault();
+
+        var fb = new Firebase("https://deviowa-draw.firebaseio.com/art-gallery");
+        fb.once("value", function(d) {
+            var files = d.val();
+
+            console.log("here");
+
+            var html = "";
+            for (var key in files) {
+                var filedata = files[key];
+                var thisItem = "<img class='responsive img-thumbnail' width='250' src='" + filedata + "'>";
+                html += thisItem;
+            }
+
+            $(".gallery-area").html(html);
+            $("#art-gallery").modal();
+        });
+    });
 });
 </script>
+
+<div class="modal fade" id="art-gallery">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Art Gallery</h4>
+    </div>
+    <div class="modal-body">
+        <div class="gallery-area">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </body>
 </html>
