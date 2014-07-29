@@ -153,12 +153,14 @@ function findxy(res, e) {
 </script>
 
 </head>
-<body onload="init()">
+<body style="overflow:hidden;" onload="init()">
 <div class= "drawingelements">
     <canvas id="can" width="1000" height="1000" style="position:absolute;top:180px;left:15px; right: 10px; bottom: 10px; border: 1px solid black"></canvas></div>
     
-<div style="position:absolute;top:10px;left:36%;text-align:center;">
-    <div style="font-family:sans-serif;color:#00FFFF;font-size:30px"><strong>Choose color</strong></div>
+
+<div id="middle">
+<!--<div id="middle" style="position:absolute;top:10px;left:36%;text-align:center;"> -->
+    <div style="font-family:sans-serif;color:#00FFFF;"><strong>Choose color</strong></div>
    <!-- <div style="position:absolute;top:5%;left:36%;width:30px;height:30px;border-radius:100px; background:#339900;" id="green" onclick="color(this)"></div>
     <div style="position:absolute;top:5%;left:40%;width:30px;height:30px;background:blue;border-radius:100px;" id="blue" onclick="color(this)"></div>
     <div style="position:absolute;top:5%;left:44%;width:30px;height:30px;background:red;border-radius:100px;" id="red" onclick="color(this)"></div>
@@ -192,7 +194,8 @@ function findxy(res, e) {
     </div>
 
 
-    <div style="position:absolute;top:20px;left:18%;font-family:sans-serif;color:#FF0000;font-size:30px"><strong>Eraser</strong><!--<div style="position:absolute;top:10%;left:24%;width:20px;height:20px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>--><div style="width:20px;height:20px;background:white;border:2px black solid;" id="white" onclick="color(this)"></div></div>
+   <!-- <div class="borrar" style="position:absolute;top:20px;left:18%;font-family:sans-serif;color:#FF0000;font-size:30px">-->
+   <div class="borrar"><strong>Eraser</strong><!--<div style="position:absolute;top:10%;left:24%;width:20px;height:20px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>--><div style="width:20px;height:20px;background:white;border:2px black solid;" id="white" onclick="color(this)"></div></div>
     
     
 <div style="position:absolute;left:70%;top:30px">
