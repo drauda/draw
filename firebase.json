@@ -1,0 +1,9 @@
+{
+  "firebase": "deviowa-draw",
+  "public": "public",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
