@@ -2,7 +2,7 @@ $(document).ready(function()
 {
 	console.log("Adding color picker");
     var picker = $("#colorPicker1").tinycolorpicker();
-
+    
    	picker.bind("change", function(e, color, rgbcolor) {
    		changeColorTo(color);
    	});

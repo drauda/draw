@@ -2,7 +2,7 @@
 <head>
 
 
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="HandheldFriendly" content="true">
 
@@ -14,7 +14,12 @@
 
 <link rel="stylesheet" href="untitled.css">
 <link rel="stylesheet" href="css/tinycolorpicker.css">
-
+<script src= "multidraw.js"></script>
+<script src= "SVGdraw.js"></script>
+<script src= "canvasDraw.js"></script>
+<script src= "pointerdraw.js"></script>
+<script src= "VMLdraw.js"></script>
+<script src= "svgcolors.js"></script>
 <script src= "hammer.js"></script>
 <script type="text/javascript">
 var canvas, ctx, flag = false,
@@ -24,74 +29,82 @@ var canvas, ctx, flag = false,
     currY = 0,
     dot_flag = false;
 
-var x = "black",
-    y = 2;
+// var x = "black",
+//     y = 2;
 
-function changeColorTo(col) {
-    x = col;
-}
+LINEWIDTH = 5;
+
+// function changeColorTo(col) {
+//     x = col;
+// }
+
+
+
+
+
+
 
 function init() {
-    canvas = document.getElementById('can');
-    ctx = canvas.getContext("2d");
-    canvas.width=window.innerWidth - 20; 
-   		canvas.height=window.innerHeight-70;
-    w = canvas.width;
-    h = canvas.height;
+    // canvas = document.getElementById('can');
+    // ctx = canvas.getContext("2d");
+    // canvas.width=window.innerWidth - 20; 
+   	// 	canvas.height=window.innerHeight-70;
+    // w = canvas.width;
+    // h = canvas.height;
 
-   window.addEventListener("resize", function (e){
-   		console.log("resize", window.innerWidth, window.innerHeight);
-   		canvas.width=window.innerWidth - 20; 
-   		canvas.height=window.innerHeight-70;
-   })
-   var c = Hammer(canvas);	
-    c.on("drag", function (e) {
-        findxy('move', e.gesture.touches[0])
-        e.preventDefault()
-    }, false);
-    c.on("dragstart", function (e) {
-        console.log(e.gesture.touches)
-        findxy('down', e.gesture.touches[0])
-        e.preventDefault()
-    }, false);
-    c.on("dragend", function (e) {
-        findxy('up', e.gesture.touches[0])
-        e.preventDefault()
-    }, false);
-    window.addEventListener('touchmove',function(e)
-    {
-    	e.preventDefault();
-    })
+   // window.addEventListener("resize", function (e){
+   // 		console.log("resize", window.innerWidth, window.innerHeight);
+   // 		canvas.width=window.innerWidth - 20; 
+   // 		canvas.height=window.innerHeight-70;
+   // })
+   // var c = Hammer(canvas);	
+   //  c.on("drag", function (e) {
+   //      findxy('move', e.gesture.touches[0])
+   //      e.preventDefault()
+   //  }, false);
+   //  c.on("dragstart", function (e) {
+   //      console.log(e.gesture.touches)
+   //      findxy('down', e.gesture.touches[0])
+   //      e.preventDefault()
+   //  }, false);
+   //  c.on("dragend", function (e) {
+   //      findxy('up', e.gesture.touches[0])
+   //      e.preventDefault()
+   //  }, false);
+   //  window.addEventListener('touchmove',function(e)
+   //  {
+   //  	e.preventDefault();
+   //  })
 }
 
-function color(obj) {
-    switch (obj.id) {
-        case "green":
-            x = "#339900";
-            break;
-        case "blue":
-            x = "blue";
-            break;
-        case "red":
-            x = "red";
-            break;
-        case "yellow":
-            x = "yellow";
-            break;
-        case "orange":
-            x = "#FF6600";
-            break;
-        case "black":
-            x = "black";
-            break;
-        case "white":
-            x = "white";
-            break;
-    }
-    if (x == "white") y = 14;
-    else y = 50;
+// function color(obj) {
+//     switch (obj.id) {
+//         case "green":
+//             x = "#339900";
+//             break;
+//         case "blue":
+//             x = "blue";
+//             break;
+//         case "red":
+//             x = "red";
+//             break;
+//         case "yellow":
+//             x = "yellow";
+//             break;
+//         case "orange":
+//             x = "#FF6600";
+//             break;
+//         case "black":
+//             x = "black";
+//             break;
+//         case "white":
+//             x = "white";
+//             break;
+//     }
+//     if (x == "white") y = 14;
+//     else y = 50;
 
-}
+// }
 
 function draw() {
     ctx.beginPath();
@@ -106,8 +119,13 @@ function draw() {
 function erase() {
     var m = confirm("Are you sure you want to delete this?");
     if (m) {
-        ctx.clearRect(0, 0, w, h);
-        document.getElementById("canvasimg").style.display = "none";
+        $("canvas").each(function(){
+            console.log(this);
+            if (this.width > 150)
+              this.getContext("2d").clearRect(0, 0, this.width, this.height);
+        })
+        //window.CTX.clearRect(0, 0, window.CTX.canvas.width, window.CTX.canvas.height);
+        //document.getElementById("canvasimg").style.display = "none";
     }
 }
 
@@ -155,7 +173,17 @@ function findxy(res, e) {
 </head>
 <body style="overflow:hidden;" onload="init()">
 <div class= "drawingelements">
-    <canvas id="can" width="1000" height="1000" style="position:absolute;top:180px;left:15px; right: 10px; bottom: 10px; border: 1px solid black"></canvas></div>
+<!--     <canvas id="can" width="1000" height="1000" style="position:absolute;top:180px;left:15px; right: 10px; bottom: 10px; border: 1px solid black"></canvas></div>
+ -->
+
+<div style="padding: 0 0.25in; width: 100%; height: 100%; padding-top:180px; padding-bottom: 10px">
+        <div style="border: 1px solid gray; box-shadow: rgba(0,0,0,0.4) 2px 2px 5px;" >
+            <div class="multidrawTarget" style="overflow: hidden; width: 100%; height: 100%;">
+            </div>
+        </div>
+    </div>
+
+
     
 
 <div id="middle">
@@ -171,8 +199,8 @@ function findxy(res, e) {
 
  
 
-     
-    <div id="colorPicker1"  onclick="color(this)" style="top:15px;">
+     <!-- onclick="color(this)" -->
+    <div id="colorPicker1"   style="top:15px;">
         <a class="color"><div class="colorInner"></div></a>
         <div class="track"></div>
         <ul class="dropdown"><li></li></ul>
@@ -195,7 +223,7 @@ function findxy(res, e) {
 
 
    <!-- <div class="borrar" style="position:absolute;top:20px;left:18%;font-family:sans-serif;color:#FF0000;font-size:30px">-->
-   <div class="borrar"><strong>Eraser</strong><!--<div style="position:absolute;top:10%;left:24%;width:20px;height:20px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>--><div style="width:20px;height:20px;background:white;border:2px black solid;" id="white" onclick="color(this)"></div></div>
+   <div class="borrar"><strong>Eraser</strong><!--<div style="position:absolute;top:10%;left:24%;width:20px;height:20px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>--><div style="width:20px;height:20px;background:white;border:2px black solid;" id="white" onclick="setEraser()"></div></div>
     
     
 <div style="position:absolute;left:70%;top:30px">
@@ -212,11 +240,42 @@ function findxy(res, e) {
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
 <script type="text/javascript" src="js/jquery.tinycolorpicker.min.js"></script>
-<script type="text/javascript" src="color.js"></script>
+<!-- <script type="text/javascript" src="color.js"></script> -->
 
 <script type="text/javascript">
-    
+ 
+COLOR = "#000000";
+
+
+function setEraser(){
+    COLOR = "#FFFFFF";
+
+}
+
+
 $(function() {
+
+
+    console.log("Adding color picker");
+    var picker = $("#colorPicker1").tinycolorpicker();
+
+    picker.bind("change", function(e, color, rgbcolor) {
+
+        var values = rgbcolor.split("(")[1].split(")")[0].split(",");
+        window.COLOR = color;// {r: values[0], g: values[1], b: values[2]};
+
+        console.log(values, COLOR);
+        // changeColorTo(rgbcolor);
+    });
+
+    $(body)('touchmove', function(event) {
+
+      event.prventDefault();
+
+    });
+
+
+
     $("#brushSizes a").on("click", function(e) {
         e.preventDefault();
         console.log($(this).text());
@@ -227,12 +286,14 @@ $(function() {
             case "Large": y = 50; break;
             case "X-Large": y = 100; break;
         };
+
+        LINEWIDTH = y;
     });
 
     $("#save").on("click", function(e){
         e.preventDefault();
 
-        var imageData = $("#can").get(0).toDataURL();
+        var imageData = $("canvas").get(0).toDataURL();
 
         console.log("going to save the iamge");
         console.log(imageData);
